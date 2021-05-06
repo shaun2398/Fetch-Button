@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    ol li{
+        list-style-type: none;
+    }
+
+    #joke{
+        border: 1px solid red;
+        height: auto;
+        width: 300px;
+        margin-top: 1rem;
+    }
+</style>
+<body>
+    <h2>Create a Button that deletes something</h2>
+    <ol class="myList">
+        <li class="myList_item">a</li>
+        <li class="myList_item">b</li>
+        <li class="myList_item">c</li>
+        <li class="myList_item">delete me</li>
+        <li class="myList_item">e</li>
+    </ol>
+    <button id="btn">DELETE THE FOURTH CHILD</button>
+    
+    <h2>Button that fetches data</h2>
+    <button id="btn_fetch">Fetch data</button>
+    <div id='joke'></div>
+
+    <button id='fetchBtnTwo'>fetch button two</button>
+    <div id="fetchMeal"></div>
+    <h1>INGEREDIENTS</h1>
+    <ol id="ingredients">
+
+    </ol>
+<script>
+
+    // delete button
+    const myBtn = document.getElementById('btn')
+    myBtn.addEventListener('click', () => {
+        const parentEl = document.getElementsByClassName('myList')
+        const classList = document.getElementsByClassName('myList_item')
+        const toDelete = classList[3]
+        const innerHTML = toDelete.innerHTML = ' '
+    })
+
+    // fetch button
+    const fetchBtn = document.getElementById('btn_fetch');
+    fetchBtn.addEventListener('click', () => {
+        fetch('https://cat-fact.herokuapp.com/facts/')
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                let randomNum = Math.floor(Math.random() * 5)
+                const createEl = document.createElement('p')
+                const parentEl = document.getElementById('joke')
+                const innerHTML = createEl.innerHTML = `${data[randomNum].text}`
+                parentEl.appendChild(createEl)
+            })
+            .catch(error => console.log("Error"))
+    })
+</script>
+</body>
+</html>
